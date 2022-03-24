@@ -8,11 +8,29 @@ printf= "
 |    \_/\_/ \___|_|\___\___/|_| |_| |_|\___|   |_|\___/  /_/   \_\_|  \___|_| |_|    |___|_| |_|___/\__\__ _|_|_| |
 |                                                                                                                 |
 -------------------------------------------------------------------------------------------------------------------
-"    
+"
+echo "ENTER HOSTNAME:"
+read "hostname"
+echo "echo $hostname < /etc/hostname" >> /mnt/temp.conf
+echo "USERNAME:"
+read "username"
+echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.conf
+echo "\"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.conf
+echo "USER PASSWORD"
+read "user_password"
+echo "echo $username:$user_password | chpasswd" >> /mnt/temp.conf
+echo "ROOT PASSWORD"
+read "root_password"
+echo "echo root:$root_password | chpasswd" >> /mnt/temp.conf 
+chmod u+x /mnt/temp.conf 
+
 # Step 1
 loadkeys us
 pacman --noconfirm -Sy archlinux-keyring
 timedatectl set-ntp true
+wipefs -a /dev/sda1
+wipefs -a /dev/sda2
+wipefs -a /dev/sda
 sfdisk /dev/sda << EOF
 ,500m
 ;
@@ -22,11 +40,11 @@ mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
-pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager base-devel
+pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano 
 genfstab -U /mnt >> /mnt/etc/fstab
 sed '1,/^# Step 2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
-arch-chroot /mnt
+arch-chroot /mnt ./arch_install2.sh
 exit
 
 # Step 2
@@ -37,22 +55,17 @@ sed -i "/en_IN.UTF-8/s/^#//g" /etc/locale.gen
 locale-gen
 echo "LANG=en_IN.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=us" > /etc/locale.conf
-echo "Enter hostname: "
-read hostname
-echo $hostname > /etc/hostname
-echo "Enter Username: "
-read username
-useradd -m -G wheel -s /bin/bash $username
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-echo "$username ALL=(ALL) ALL" >> /etc/sudoers
-echo "User password:"
-passwd $username
-echo "root password:"
-passwd 
+./temp.conf
+rm -r temp.conf
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 pacman -Ss --noconfirm fonts ttf
-pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl dmenu xorg-server xorg-xinit alacritty pavucontrol light picom rofi git nautilus firefox gparted gnome-boxes arandr feh bluez bluez-utils libreoffice mpv neofetch qbittorrent code xorg-xprop sxiv nano pulseaudio sysstat 
+pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
+        dmenu xorg-server xorg-xinit alacritty pavucontrol \
+        light picom rofi git nautilus firefox gparted base-devel\
+        gnome-boxes arandr feh bluez bluez-utils libreoffice \
+        mpv neofetch qbittorrent code xorg-xprop sxiv nano \
+        pulseaudio sysstat 
 rfkill unblock all
 echo "exec i3 " >> ~/.xinitrc
 systemctl enable NetworkManager.service
