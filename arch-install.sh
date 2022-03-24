@@ -62,12 +62,14 @@ systemctl enable NetworkManager.service
 systemctl start bluetooth.service
 systemctl enable bluetooth.service
 echo "Please reboot"
+
 location=/home/$username/arch_install3.sh
 sed '1,/^# Step 3$/d' arch_install2.sh > $location
 chown $username:$username $location
 chmod +x $location
 su -c $location -s /bin/sh $username
 exit 
+sudo reboot now
 
 # Step 3
 echo "Enter Username "
