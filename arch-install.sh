@@ -11,18 +11,12 @@ printf= "
 "
 echo "ENTER HOSTNAME:"
 read "hostname"
-echo "echo $hostname < /etc/hostname" >> /mnt/temp.conf
 echo "USERNAME:"
 read "username"
-echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.conf
-echo "\"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.conf
 echo "USER PASSWORD"
 read "user_password"
-echo "echo $username:$user_password | chpasswd" >> /mnt/temp.conf
 echo "ROOT PASSWORD"
 read "root_password"
-echo "echo root:$root_password | chpasswd" >> /mnt/temp.conf 
-chmod u+x /mnt/temp.conf 
 
 # Step 1
 loadkeys us
@@ -42,6 +36,12 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano 
 genfstab -U /mnt >> /mnt/etc/fstab
+echo "echo $hostname < /etc/hostname" >> /mnt/temp.conf
+echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.conf
+echo "\"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.conf
+echo "echo $username:$user_password | chpasswd" >> /mnt/temp.conf
+echo "echo root:$root_password | chpasswd" >> /mnt/temp.conf 
+chmod u+x /mnt/temp.conf 
 sed '1,/^# Step 2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
 arch-chroot /mnt ./arch_install2.sh
