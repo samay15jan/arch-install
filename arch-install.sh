@@ -36,9 +36,9 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano 
 genfstab -U /mnt >> /mnt/etc/fstab
-echo "echo $hostname < /etc/hostname" >> /mnt/temp.conf
+echo "echo $hostname > /etc/hostname" >> /mnt/temp.conf
 echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.conf
-echo "\"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.conf
+echo "echo \"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.conf
 echo "echo $username:$user_password | chpasswd" >> /mnt/temp.conf
 echo "echo root:$root_password | chpasswd" >> /mnt/temp.conf 
 chmod u+x /mnt/temp.conf 
@@ -50,13 +50,12 @@ exit
 # Step 2
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 hwclock --systohc
-pacman -S --noconfirm sed
 sed -i "/en_IN.UTF-8/s/^#//g" /etc/locale.gen
 locale-gen
 echo "LANG=en_IN.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=us" > /etc/locale.conf
-./temp.conf
-rm -r temp.conf
+./mnt/temp.conf
+rm -r /mnt/temp.conf
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 pacman -Ss --noconfirm fonts ttf
