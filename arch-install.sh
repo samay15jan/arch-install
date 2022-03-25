@@ -41,6 +41,10 @@ echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.sh
 echo "echo \"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.sh
 echo "echo $username:$user_password | chpasswd" >> /mnt/temp.sh
 echo "echo root:$root_password | chpasswd" >> /mnt/temp.sh
+sed -i '38d' /etc/systemd/system/getty.target.wants/getty@tty1.service
+echo 'echo "[Service]" >> /etc/systemd/system/getty.target.wants/getty@tty1.service'
+echo 'echo "ExecStart=" >> /etc/systemd/system/getty.target.wants/getty@tty1.service'
+echo "echo ExecStart=-/sbin/agetty -a $username %I" '$TERM' ">> /etc/systemd/system/getty.target.wants/getty@tty1.service" >> /mnt/temp.sh
 chmod u+x /mnt/temp.sh 
 sed '1,/^# Step 2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
@@ -57,21 +61,10 @@ echo "KEYMAP=us" > /etc/locale.conf
 ./temp.sh
 rm -r /temp.sh
 grub-install /dev/sda
+sed -i 's/quiet/pci=noaer/g' /etc/default/grub
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
-pacman -Ss --noconfirm fonts ttf
-pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
-        dmenu xorg-server xorg-xinit alacritty pavucontrol \
-        light picom rofi git nautilus firefox gparted base-devel\
-        gnome-boxes arandr feh bluez bluez-utils libreoffice \
-        mpv neofetch qbittorrent code xorg-xprop sxiv nano \
-        pulseaudio sysstat openssh
-rfkill unblock all
-echo "exec i3 " >> ~/.xinitrc
 systemctl enable NetworkManager.service
-systemctl start bluetooth.service
-systemctl enable bluetooth.service
-echo "Please reboot"
-
 location=/home/$username/arch_install3.sh
 sed '1,/^# Step 3$/d' arch_install2.sh > $location
 chown $username:$username $location
@@ -81,6 +74,18 @@ exit
 sudo reboot now
 
 # Step 3
+pacman -Ss --noconfirm fonts ttf
+pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
+                dmenu xorg-server xorg-xinit alacritty pavucontrol \
+        light picom rofi git nautilus firefox gparted base-devel\
+        gnome-boxes arandr feh bluez bluez-utils libreoffice \
+        mpv neofetch qbittorrent code xorg-xprop sxiv nano \
+        pulseaudio sysstat openssh
+rfkill unblock all
+echo "exec i3 " >> ~/.xinitrc
+systemctl enable NetworkManager.service
+systemctl start bluetooth.service
+systemctl enable bluetooth.service
 echo "Enter Username "
 read username
 sudo pacman -Sy git
