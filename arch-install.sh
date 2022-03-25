@@ -54,8 +54,8 @@ sed -i "/en_IN.UTF-8/s/^#//g" /etc/locale.gen
 locale-gen
 echo "LANG=en_IN.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=us" > /etc/locale.conf
-./mnt/temp.conf
-rm -r /mnt/temp.conf
+./temp.conf
+rm -r /temp.conf
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 pacman -Ss --noconfirm fonts ttf
