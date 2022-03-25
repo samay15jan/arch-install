@@ -42,9 +42,9 @@ echo "echo \"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.sh
 echo "echo $username:$user_password | chpasswd" >> /mnt/temp.sh
 echo "echo root:$root_password | chpasswd" >> /mnt/temp.sh
 sed -i '38d' /etc/systemd/system/getty.target.wants/getty@tty1.service
-echo 'echo "[Service]" >> /etc/systemd/system/getty.target.wants/getty@tty1.service'
-echo 'echo "ExecStart=" >> /etc/systemd/system/getty.target.wants/getty@tty1.service'
-echo "echo ExecStart=-/sbin/agetty -a $username %I" '$TERM' ">> /etc/systemd/system/getty.target.wants/getty@tty1.service" >> /mnt/temp.sh
+echo "[Service]" >> /etc/systemd/system/getty.target.wants/getty@tty1.service
+echo "ExecStart=" >> /etc/systemd/system/getty.target.wants/getty@tty1.service
+echo "ExecStart=-/sbin/agetty -a $username %I" '$TERM' >> /etc/systemd/system/getty.target.wants/getty@tty1.service
 chmod u+x /mnt/temp.sh 
 sed '1,/^# Step 2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
