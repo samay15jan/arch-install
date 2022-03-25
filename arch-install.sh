@@ -36,12 +36,12 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano 
 genfstab -U /mnt >> /mnt/etc/fstab
-echo "echo $hostname > /etc/hostname" >> /mnt/temp.conf
-echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.conf
-echo "echo \"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.conf
-echo "echo $username:$user_password | chpasswd" >> /mnt/temp.conf
-echo "echo root:$root_password | chpasswd" >> /mnt/temp.conf 
-chmod u+x /mnt/temp.conf 
+echo "echo $hostname > /etc/hostname" >> /mnt/temp.sh
+echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.sh
+echo "echo \"$username ALL=(ALL:ALL) ALL\" >> /etc/sudoers" >> /mnt/temp.sh
+echo "echo $username:$user_password | chpasswd" >> /mnt/temp.sh
+echo "echo root:$root_password | chpasswd" >> /mnt/temp.sh
+chmod u+x /mnt/temp.sh 
 sed '1,/^# Step 2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
 arch-chroot /mnt ./arch_install2.sh
@@ -54,8 +54,8 @@ sed -i "/en_IN.UTF-8/s/^#//g" /etc/locale.gen
 locale-gen
 echo "LANG=en_IN.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=us" > /etc/locale.conf
-./temp.conf
-rm -r /temp.conf
+./temp.sh
+rm -r /temp.sh
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 pacman -Ss --noconfirm fonts ttf
@@ -64,7 +64,7 @@ pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         light picom rofi git nautilus firefox gparted base-devel\
         gnome-boxes arandr feh bluez bluez-utils libreoffice \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
-        pulseaudio sysstat 
+        pulseaudio sysstat openssh
 rfkill unblock all
 echo "exec i3 " >> ~/.xinitrc
 systemctl enable NetworkManager.service
