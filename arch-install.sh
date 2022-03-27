@@ -60,16 +60,11 @@ systemctl enable NetworkManager.service
 location= /home/arch_install3.sh
 sed '1,/^# Step 3$/d' arch_install2.sh > /home/arch_install3.sh
 chmod +x /home/arch_install3.sh
-exit
 clear
 echo "INSTALLATION COMPLETED PLEASE RESTART"
-sleep 10
+exit
 
 # Step 3
-sudo sed -i '38d' /etc/systemd/system/getty.target.wants/getty@tty1.service
-sudo echo "[Service]" >> /etc/systemd/system/getty.target.wants/getty@tty1.service
-sudo echo "ExecStart=" >> /etc/systemd/system/getty.target.wants/getty@tty1.service
-sudo echo "ExecStart=-/sbin/agetty -a $username %I" '$TERM' >> /etc/systemd/system/getty.target.wants/getty@tty1.service
 sudo pacman -Ss --noconfirm fonts ttf
 sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         dmenu xorg-server xorg-xinit alacritty pavucontrol \
@@ -78,7 +73,6 @@ sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
         pulseaudio sysstat openssh xorg go 
 echo "exec i3 " >> ~/.xinitrc
-sudo systemctl start bluetooth.service
 sudo systemctl enable bluetooth.service
 clear
 echo "Enter Username "
@@ -88,6 +82,8 @@ git clone https://aur.archlinux.org/yay-git.git
 sudo chown -R $username:$username ./yay-git
 cd yay-git
 makepkg -si
+cd /home/$username
+sudo rm -r yay-git
 yay -S --noconfirm pfetch 
 sudo chmod +s /usr/bin/light
 sudo curl -sL "https://raw.githubusercontent.com/Edesem/bluetooth-connect-script/main/bcn" -o /usr/local/bin/bluez
@@ -110,17 +106,7 @@ cd ~/.config/i3/rofi/bin
 sudo chmod u+x network_menu launcher
 cd ~/.config/i3/rofi/themes
 sudo chmod u+x colors.rasi launcher.rasi network.rasi networkmenu.rasi
-
-### Manual processes
-
-## Auto start i3wm on boot 
-#          sudo nano /etc/profile  
-#          if [["$(tty)"=='/dev/tty1']]; then
-#          exec startx
-#          fi
-
-## To connect bluetooth manually
-#          bluetoothctl
-#          scan on 
-#          connect [mac address] #mac address of device
-
+cd /
+sudo rm -r arch_install2.sh 
+cd /home/ 
+sudo rm -r arch_install3.sh
