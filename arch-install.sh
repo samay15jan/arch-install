@@ -70,18 +70,17 @@ sudo sed -i '38d' /etc/systemd/system/getty.target.wants/getty@tty1.service
 sudo echo "[Service]" >> /etc/systemd/system/getty.target.wants/getty@tty1.service
 sudo echo "ExecStart=" >> /etc/systemd/system/getty.target.wants/getty@tty1.service
 sudo echo "ExecStart=-/sbin/agetty -a $username %I" '$TERM' >> /etc/systemd/system/getty.target.wants/getty@tty1.service
-pacman -Ss --noconfirm fonts ttf
-pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
+sudo pacman -Ss --noconfirm fonts ttf
+sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         dmenu xorg-server xorg-xinit alacritty pavucontrol \
         light picom rofi git nautilus firefox gparted base-devel\
         gnome-boxes arandr feh bluez bluez-utils libreoffice \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
         pulseaudio sysstat openssh xorg
-clear     
-rfkill unblock all
+clear   
 echo "exec i3 " >> ~/.xinitrc
-systemctl start bluetooth.service
-systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+sudo systemctl enable bluetooth.service
 echo "Enter Username "
 read username
 sudo pacman -Sy git
