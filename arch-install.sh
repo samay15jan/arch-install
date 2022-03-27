@@ -76,14 +76,13 @@ sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         light picom rofi git nautilus firefox gparted base-devel\
         gnome-boxes arandr feh bluez bluez-utils libreoffice \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
-        pulseaudio sysstat openssh xorg
-clear   
+        pulseaudio sysstat openssh xorg go 
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl start bluetooth.service
 sudo systemctl enable bluetooth.service
+clear
 echo "Enter Username "
 read username
-sudo pacman -Sy git
 cd /home/$username
 git clone https://aur.archlinux.org/yay-git.git
 sudo chown -R $username:$username ./yay-git
@@ -100,14 +99,17 @@ sudo cp -r ~/arch-install/bin /usr/local/
 sudo cp -r ~/arch-install/Wallpaper /home/$username
 cd /usr/local/bin
 sudo chmod u+x bluez wald
-cd ~/.config/i3/scripts 
+cd /usr/local 
+sudo chown -R $username:$username bin
+cd ~/.config/i3
+sudo chown -R $username:$username scripts
+sudo chown -R $username:$username rofi
+cd ~/.config/i3/scripts
 sudo chmod u+x cpu_usage shutdown_menu
 cd ~/.config/i3/rofi/bin
 sudo chmod u+x network_menu launcher
 cd ~/.config/i3/rofi/themes
-sudo chmod u+x colors.rasi launcher.rasi network.rasi networkmenu.rasi networkmenu_config.rasi
-sudo chown -R $username:$username .config/
-sudo chown -R $username:username /usr/local/bin
+sudo chmod u+x colors.rasi launcher.rasi network.rasi networkmenu.rasi
 
 ### Manual processes
 
