@@ -102,10 +102,13 @@ sudo cp -r ~/arch-install/Wallpaper /home/$username
 cd /usr/local/bin
 sudo chmod u+x bluez wald
 cd ~/.config/i3/scripts 
-sudo chmod u+x bandwidth battery cpu_usage shutdown_menu
+sudo chmod u+x cpu_usage shutdown_menu
 cd ~/.config/i3/rofi/bin
 sudo chmod u+x network_menu launcher
-cd
+cd ~/.config/i3/rofi/themes
+sudo chmod u+x colors.rasi launcher.rasi network.rasi networkmenu.rasi networkmenu_config.rasi
+sudo chown -R $username:$username .config/
+sudo chown -R $username:username /usr/local/bin
 
 ### Manual processes
 
