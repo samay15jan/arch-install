@@ -30,7 +30,7 @@ mount /dev/sda2 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 clear
-pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano 
+pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano sudo
 genfstab -U /mnt >> /mnt/etc/fstab
 echo "echo $hostname > /etc/hostname" >> /mnt/temp.sh
 echo "useradd -m -G wheel -s /bin/bash $username" >> /mnt/temp.sh
