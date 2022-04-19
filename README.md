@@ -1,5 +1,5 @@
 # Arch-Install Script 
-The shell scripts in this repository allow the entire process (installation and configuration of my arch with i3wm) to be automated.
+The shell scripts in this repository allow the entire process (installation and configuration of arch with i3wm) to be automated.
 
 # Important Note: 
 This script will format your drive. Please make sure you don't have any important data on your drive or just backup your data first.
