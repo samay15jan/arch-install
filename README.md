@@ -1,12 +1,14 @@
+# Arch-Install Script 
+The shell scripts in this repository allow the entire process (installation and configuration of my arch with i3wm) to be automated.
+
+# Important Note: 
+This script will format your drive. Please make sure you don't have any important data on your drive or just backup your data first.
+
 # Create arch bootable usb 
 Download arch iso from https://archlinux.org/download/ and put on a USB drive with Etcher or Rufus
 
-# Important Note: 
-This script will format your drive. 
-Please make sure you don't have any important data on your drive or just backup your data first.
-
 # INSTALLATION
-Boot with live iso 
+Boot into live iso 
 Connect to wifi:
 0: Run `rfkill unblock wifi`
 1: Run `iwctl`
@@ -25,12 +27,8 @@ chmod u+x arch-install.sh
 ./arch-install.sh
 ```
 
-Then enter hostname, username, user password and root password 
-
-After installation finishes, reboot the system, login with your credentials and you are done with a clean arch install 
-
-If you wanna install my configuration of i3wm then run arch-install3.sh 
+Then enter hostname, username, user password and root password.
 
 # System Configuration 
-This is a simple automated arch install script and by default will format your drive and make 3 partitions, 500mb efi, 2gb swap and leftover as root partition. 
+This is a simple automated arch install script and by default will format your drive and make 3 partitions: 500mb efi, 2gb swap and leftover as root partition. 
 You can have clean install after you reboot but if you wanna have my i3WM configuration you can run arch-install3.sh and it will automatically install all the necessary packages with my customized theme. Enjoy :)
