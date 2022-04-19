@@ -1,6 +1,4 @@
-# arch-install
-Arch Install Script
-Installation
+#Installation
 
 Boot into live iso
 
