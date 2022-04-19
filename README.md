@@ -1,4 +1,4 @@
-#Installation
+# INSTALLATION
 
 Boot into live iso
 
