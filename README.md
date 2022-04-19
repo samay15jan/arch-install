@@ -39,4 +39,4 @@ Then enter hostname, username, user password and root password.
 
 # System Description
 This is a simple automated arch install script and by default will format your drive and make 3 partitions: 500mb efi, 2gb swap and leftover as root partition. 
-You can have clean install after you reboot but if you wanna have my i3WM configuration you can run arch-install3.sh and it will automatically install all the necessary packages with my customized theme. Enjoy :)
+You can have clean install after you reboot but if you wanna have my i3WM configuration you can run arch_install3.sh and it will automatically install all the necessary packages with my customized theme. Enjoy :)
