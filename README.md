@@ -5,7 +5,7 @@ The shell scripts in this repository allow the entire process (installation and 
 This script will format your drive. Please make sure you don't have any important data on your drive or just backup your data first.
 
 # Create arch bootable usb 
-Download arch iso from https://archlinux.org/download/ 
+Download arch iso from <https://archlinux.org/download/>
 and put on a USB drive with Etcher or Rufus
 
 # INSTALLATION
