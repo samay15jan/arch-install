@@ -4,7 +4,7 @@ The shell scripts in this repository allow the entire process (installation and 
 # Important Note: 
 This script will format your drive. Please make sure you don't have any important data on your drive or just backup your data first.
 
-# Create arch bootable usb 
+# Create arch USB
 Download arch iso from <https://archlinux.org/download/>
 and put on a USB drive with Etcher or Rufus
 
@@ -40,4 +40,4 @@ Then enter hostname, username, user password and root password.
 
 # System Description
 This is a simple automated arch install script and by default will format your drive and make 3 partitions: 500mb efi, 2gb swap and leftover as root partition. 
-You can have clean install after you reboot but if you wanna have my i3WM configuration you can run arch_install3.sh and it will automatically install all the necessary packages with my customized theme. Enjoy :)
+If you wanna have my i3WM configuration you can run arch_install3.sh and it will automatically install all necessary packages with my customized theme. Enjoy :)
