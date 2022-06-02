@@ -113,3 +113,4 @@ cd /
 sudo rm -r arch_install2.sh 
 cd /home/ 
 sudo rm -r arch_install3.sh
+echo Finished
