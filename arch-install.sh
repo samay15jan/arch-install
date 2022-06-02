@@ -36,7 +36,6 @@ mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
-clear
 pacstrap /mnt base linux linux-firmware efibootmgr grub networkmanager sed nano sudo
 genfstab -U /mnt >> /mnt/etc/fstab
 echo "echo $hostname > /etc/hostname" >> /mnt/temp.sh
@@ -72,18 +71,18 @@ echo "INSTALLATION COMPLETED PLEASE RESTART"
 exit
 
 # Step 3
+read -p "Enter username: " username
 sudo pacman -Ss --noconfirm fonts ttf
 sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
-        dmenu xorg-server xorg-xinit alacritty pavucontrol \
+        xorg-server xorg-xinit alacritty pavucontrol go xorg openssh \
         light picom rofi git nautilus firefox gparted base-devel\
         gnome-boxes arandr feh bluez bluez-utils libreoffice \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
-        pulseaudio sysstat openssh xorg go 
+        pulseaudio sysstat
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl enable bluetooth.service
 clear
-echo "Enter Username "
-read username
+
 cd /home/$username
 git clone https://aur.archlinux.org/yay-git.git
 sudo chown -R $username:$username ./yay-git
@@ -93,13 +92,11 @@ cd /home/$username
 sudo rm -r yay-git
 yay -S --noconfirm pfetch 
 sudo chmod +s /usr/bin/light
-sudo curl -sL "https://raw.githubusercontent.com/Edesem/bluetooth-connect-script/main/bcn" -o /usr/local/bin/bluez
-sudo chmod +x /usr/local/bin/bluez
 cd /home/$username
-git clone https://github.com/samay15jan/arch-install
-sudo cp -r ~/arch-install/i3 ~/.config/
-sudo cp -r ~/arch-install/bin /usr/local/
-sudo cp -r ~/arch-install/Wallpaper /home/$username
+git clone https://github.com/samay15jan/dotfiles
+sudo cp -r ~/dotfiles/i3 ~/.config/
+sudo cp -r ~/dotfiles/bin /usr/local/
+sudo cp -r ~/dotfiles/Wallpaper /home/$username
 cd /usr/local/bin
 sudo chmod u+x bluez wald
 cd /usr/local 
