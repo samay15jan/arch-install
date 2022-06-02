@@ -11,6 +11,13 @@ read -p "Please enter hostname: " hostname
 read -p "Please enter username: " username
 read -p "Please enter user password: " user_password
 read -p "Please enter root password: " root_password
+while true; do
+read -p "Do you want to proceed with formatting your drive? (y/n)" yn
+case $yn in
+         [yY] ) break;;
+         [nN] ) exit;;
+esac
+done
 clear
 
 # Step 1
