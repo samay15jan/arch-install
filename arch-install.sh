@@ -74,10 +74,10 @@ read -p "Enter username: " username
 sudo pacman -Ss --noconfirm fonts ttf
 sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         xorg-server xorg-xinit alacritty pavucontrol go xorg openssh \
-        light picom rofi git nautilus firefox gparted base-devel\
-        gnome-boxes arandr feh bluez bluez-utils libreoffice \
+        light picom rofi git nautilus firefox gparted base-devel \
+        gnome-boxes arandr feh bluez bluez-utils libreoffice gmtp \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
-        pulseaudio sysstat
+        pulseaudio sysstat android-file-transfer mtpfs gvfs-mtp
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl enable bluetooth.service
 clear
@@ -89,7 +89,7 @@ cd yay-git
 makepkg -si
 cd /home/$username
 sudo rm -r yay-git
-yay -S --noconfirm pfetch 
+yay -S --noconfirm pfetch jmtpfs
 sudo chmod +s /usr/bin/light
 cd /home/$username
 git clone https://github.com/samay15jan/dotfiles
