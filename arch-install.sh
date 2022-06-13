@@ -65,6 +65,7 @@ systemctl enable NetworkManager.service
 location= /home/arch_install3.sh
 sed '1,/^# Step 3$/d' arch_install2.sh > /home/arch_install3.sh
 chmod +x /home/arch_install3.sh
+chown -R $username:$username /home/$username
 clear
 echo "INSTALLATION COMPLETED PLEASE RESTART"
 exit
@@ -113,4 +114,5 @@ cd /
 sudo rm -r arch_install2.sh 
 cd /home/ 
 sudo rm -r arch_install3.sh
+sudo chown -R $username:$username /home/$username
 echo Finished
