@@ -78,7 +78,7 @@ sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         light picom rofi git nautilus firefox gparted base-devel \
         gnome-boxes arandr feh bluez bluez-utils libreoffice gmtp \
         mpv neofetch qbittorrent code xorg-xprop sxiv nano \
-        pulseaudio sysstat android-file-transfer mtpfs gvfs-mtp
+        pulseaudio sysstat android-file-transfer mtpfs gvfs-mtp ttf-font-awesome
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl enable bluetooth.service
 clear
