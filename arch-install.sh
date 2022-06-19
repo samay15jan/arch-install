@@ -10,13 +10,6 @@ read -p "Please enter hostname: " hostname
 read -p "Please enter username: " username
 read -p "Please enter user password: " user_password
 read -p "Please enter root password: " root_password
-while true; do
-read -p "Do you want to proceed with formatting your drive? (y/n)" yn
-case $yn in
-         [yY] ) break;;
-         [nN] ) exit;;
-esac
-done
 clear
 
 # Step 1
@@ -71,8 +64,6 @@ echo "INSTALLATION COMPLETED PLEASE RESTART"
 exit
 
 # Step 3
-read -p "Enter username: " username
-sudo pacman -Ss --noconfirm fonts ttf
 sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         xorg-server xorg-xinit alacritty pavucontrol go xorg openssh \
         light picom rofi git nautilus firefox gparted base-devel \
@@ -81,29 +72,27 @@ sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         pulseaudio sysstat android-file-transfer mtpfs gvfs-mtp ttf-font-awesome
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl enable bluetooth.service
-clear
-
 cd /home/$username
 git clone https://aur.archlinux.org/yay-git.git
-sudo chown -R $username:$username ./yay-git
+sudo chown -R $USER:$USER ./yay-git
 cd yay-git
 makepkg -si
-cd /home/$username
+cd /home/$USER
 sudo rm -r yay-git
 yay -S --noconfirm pfetch jmtpfs
 sudo chmod +s /usr/bin/light
-cd /home/$username
+cd /home/$USER
 git clone https://github.com/samay15jan/dotfiles
 sudo cp -r ~/dotfiles/i3 ~/.config/
 sudo cp -r ~/dotfiles/bin /usr/local/
-sudo cp -r ~/dotfiles/Wallpaper /home/$username
+sudo cp -r ~/dotfiles/Wallpaper /home/$USEE
 cd /usr/local/bin
 sudo chmod u+x bluez wald
 cd /usr/local 
-sudo chown -R $username:$username bin
+sudo chown -R $USER:$USER bin
 cd ~/.config/i3
-sudo chown -R $username:$username scripts
-sudo chown -R $username:$username rofi
+sudo chown -R $USER:$USER scripts
+sudo chown -R $USER:$USER rofi
 cd ~/.config/i3/scripts
 sudo chmod u+x cpu_usage shutdown_menu
 cd ~/.config/i3/rofi/bin
@@ -114,5 +103,5 @@ cd /
 sudo rm -r arch_install2.sh 
 cd /home/ 
 sudo rm -r arch_install3.sh
-sudo chown -R $username:$username /home/$username
+sudo chown -R $USER:$USER /home/$username
 echo Finished
