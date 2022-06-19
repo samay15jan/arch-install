@@ -72,7 +72,7 @@ sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
         pulseaudio sysstat android-file-transfer mtpfs gvfs-mtp ttf-font-awesome
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl enable bluetooth.service
-cd /home/$username
+cd /home/$USER
 git clone https://aur.archlinux.org/yay-git.git
 sudo chown -R $USER:$USER ./yay-git
 cd yay-git
@@ -85,7 +85,7 @@ cd /home/$USER
 git clone https://github.com/samay15jan/dotfiles
 sudo cp -r ~/dotfiles/i3 ~/.config/
 sudo cp -r ~/dotfiles/bin /usr/local/
-sudo cp -r ~/dotfiles/Wallpaper /home/$USEE
+sudo cp -r ~/dotfiles/Wallpaper /home/$USER
 cd /usr/local/bin
 sudo chmod u+x bluez wald
 cd /usr/local 
