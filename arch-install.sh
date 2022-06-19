@@ -65,10 +65,10 @@ exit
 
 # Step 3
 sudo pacman -S --noconfirm ttf-dejavu pango i3 dmenu ffmpeg jq curl \
-        xorg-server xorg-xinit alacritty pavucontrol go xorg openssh \
-        light picom rofi git nautilus firefox gparted base-devel \
-        gnome-boxes arandr feh bluez bluez-utils libreoffice gmtp \
-        mpv neofetch qbittorrent code xorg-xprop sxiv nano \
+        alacritty pavucontrol go xorg openssh \
+        light picom git nautilus firefox gparted base-devel \
+        arandr feh bluez bluez-utils libreoffice gmtp \
+        mpv neofetch qbittorrent code sxiv nano \
         pulseaudio sysstat android-file-transfer mtpfs gvfs-mtp ttf-font-awesome
 echo "exec i3 " >> ~/.xinitrc
 sudo systemctl enable bluetooth.service
